@@ -29,6 +29,12 @@ class FlyNoWay(FlyBehavior):
         # do nothing - can't fly!
         print("I can't fly")
 
+# Rocket powered flying behavior
+class FlyRocketPowered(FlyBehavior):
+    def fly(self):
+        print("I'm flying with a rocket!")
+
+
 # Quack Behaviors
 class Quack(QuackBehavior):
     def quack(self):
@@ -55,6 +61,13 @@ class Duck:
         self.quackBehavior = None
         self.flyBehavior = None
 
+    # setting behavior dynamically on the fly
+    def setFlyBehavior(self, fb):
+        self.flyBehavior = fb
+    
+    def sefQuackBehavior(self, qb):
+        self.quackBehavior = qb
+
     def display(self):
         raise NotImplementedError
 
@@ -77,9 +90,28 @@ class MallardDuck(Duck):
     def display(self):
         print("I'm a real Mallard duck")
 
+class ModelDuck(Duck):
+    def __init__(self):
+        self.quackBehavior = Quack()
+        self.flyBehavior = FlyNoWay()
+    
+    def display(self):
+        print("I'm a model duck")
 
-if __name__ == "__main__":
+# Testing the MallardDuck code
+def MiniDuckSimulator():
     mallard = MallardDuck()
     mallard.display()
     mallard.performQuack()
     mallard.performFly()
+
+    model = ModelDuck()
+    model.display()
+    model.performFly()
+    model.setFlyBehavior(FlyRocketPowered())
+    model.performFly()
+
+
+
+if __name__ == "__main__":
+    MiniDuckSimulator()
