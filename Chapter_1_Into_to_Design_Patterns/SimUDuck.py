@@ -1,21 +1,23 @@
-
-
-
+from abc import ABC, abstractmethod
+##################
 # Duck Behaviors
-
+##################
 # The interface that all flying behavior classes implement
-class FlyBehavior:
+class FlyBehavior(ABC):
+    @abstractmethod
     def fly(self):
-        raise NotImplementedError
+        pass
 
-
-class QuackBehavior:
+class QuackBehavior(ABC):
+    @abstractmethod
     def quack(self):
-        raise NotImplementedError
+        pass
 
+##################
 # Implementing the Duck Behaviors
+##################
 
-# Fly Behaviors
+### Fly Behaviors ###
 
 # Flying behavior implementation for ducks that DO fly 
 class FlyWithWings(FlyBehavior):
@@ -35,7 +37,7 @@ class FlyRocketPowered(FlyBehavior):
         print("I'm flying with a rocket!")
 
 
-# Quack Behaviors
+### Quack Behaviors ###
 class Quack(QuackBehavior):
     def quack(self):
         # implements duck quacking
@@ -53,9 +55,9 @@ class MuteQuack(QuackBehavior):
 
 # Integrating the Duck Behavior // Page.15
 
-class Duck:
+# Duck Abstracted class
+class Duck(ABC):
     def __init__(self):
-        
         # Declare two reference variables for the behavior interface types.
         # All duck subclasses inherit these.
         self.quackBehavior = None
@@ -68,6 +70,7 @@ class Duck:
     def sefQuackBehavior(self, qb):
         self.quackBehavior = qb
 
+    @abstractmethod
     def display(self):
         raise NotImplementedError
 
@@ -81,6 +84,9 @@ class Duck:
     def swim(self):
         print("All ducks float, even decoys!")
 
+##################
+# Extend the Duck
+##################
 
 class MallardDuck(Duck):
     def __init__(self):
@@ -97,6 +103,8 @@ class ModelDuck(Duck):
     
     def display(self):
         print("I'm a model duck")
+
+
 
 # Testing the MallardDuck code
 def MiniDuckSimulator():
